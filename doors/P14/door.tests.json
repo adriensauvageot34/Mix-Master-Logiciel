@@ -1,3 +1,17 @@
-[
-  { "id": "test-p14", "title": "P14 placeholder test" }
-]
+{
+  "groups": [
+    { "id": "always", "label": "[TEST:ALWAYS] (20–40s)", "scope": "door" }
+  ],
+  "tests": [
+    { "id": "bas_volume", "label": "Bas volume", "group": "always", "required": false, "nonSkippable": false, "reasonField": true },
+    { "id": "mono", "label": "Mono", "group": "always", "required": false, "nonSkippable": false, "reasonField": true },
+    { "id": "passage_dense", "label": "Passage dense", "group": "always", "required": false, "nonSkippable": false, "reasonField": true },
+    { "id": "ab_bypass_levelmatch", "label": "A/B level-match (bypass) [REF:R3-05]", "group": "always", "required": false, "nonSkippable": false, "reasonField": true },
+    { "id": "ab_sig_off", "label": "A/B [TOGGLE:SIG_OFF] vs ON (level-match) [REF:R3-02] [REF:R3-05]", "group": "always", "required": false, "nonSkippable": true, "reasonField": true },
+    { "id": "ab_path_commit", "label": "PATH_COMMIT validé (A/B level-match)", "group": "always", "required": false, "nonSkippable": true, "reasonField": true },
+    { "id": "mute_supports", "label": "Mute SUPPORTS (côtés/couches)", "group": "always", "required": false, "nonSkippable": false, "reasonField": true },
+    { "id": "mute_lead", "label": "Mute LEAD", "group": "always", "required": false, "nonSkippable": false, "reasonField": true },
+    { "id": "side_only", "label": "Side-only", "group": "always", "required": false, "nonSkippable": false, "reasonField": true },
+    { "id": "bypass_bus_vocal_final", "label": "Bypass bus vocal final (si existe)", "group": "always", "required": false, "nonSkippable": false, "reasonField": true }
+  ]
+}
