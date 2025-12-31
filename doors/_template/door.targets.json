@@ -1,0 +1,8 @@
+{
+  "primary": [
+    { "id": "primary-1", "label": "Primary option" }
+  ],
+  "secondary": [
+    { "id": "secondary-1", "label": "Secondary option" }
+  ]
+}

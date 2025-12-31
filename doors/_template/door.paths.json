@@ -1,0 +1,8 @@
+{
+  "trials": [
+    { "id": "trial-a", "label": "Trial A" }
+  ],
+  "commits": [
+    { "id": "commit-1", "label": "Commit 1" }
+  ]
+}

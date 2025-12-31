@@ -1,0 +1,8 @@
+{
+  "trials": [
+    { "id": "trial-p14", "label": "Trial placeholder" }
+  ],
+  "commits": [
+    { "id": "commit-p14", "label": "Commit placeholder" }
+  ]
+}

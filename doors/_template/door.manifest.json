@@ -1,0 +1,11 @@
+{
+  "sections": [
+    { "id": "overview", "title": "Overview" },
+    { "id": "paths", "title": "Paths" },
+    { "id": "targets", "title": "Targets" },
+    { "id": "tests", "title": "Tests" }
+  ],
+  "resources": [
+    { "id": "res-overview", "title": "Overview resource" }
+  ]
+}

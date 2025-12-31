@@ -1,0 +1,21 @@
+:root {
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  color: #1a1a1a;
+  background: #f6f7fb;
+}
+
+body {
+  margin: 0;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+main {
+  padding: 1rem;
+}
+
+a {
+  color: inherit;
+}

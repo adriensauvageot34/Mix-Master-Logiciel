@@ -1,0 +1,6 @@
+{
+  "id": "_template",
+  "title": "Template Door",
+  "intent": "Base door for new packs",
+  "version": "0.1.0"
+}
