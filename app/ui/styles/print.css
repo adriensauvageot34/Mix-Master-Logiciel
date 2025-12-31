@@ -1,0 +1,11 @@
+@media print {
+  body {
+    background: white;
+  }
+
+  .runbar,
+  .sidebar,
+  .drawer {
+    display: none !important;
+  }
+}

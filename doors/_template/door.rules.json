@@ -1,0 +1,8 @@
+{
+  "trialMax": 2,
+  "commitRequired": true,
+  "done": [
+    { "type": "requiredField", "path": "paths.selection.commit" },
+    { "type": "requiredTestNotSkipped" }
+  ]
+}

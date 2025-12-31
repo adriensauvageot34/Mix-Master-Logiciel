@@ -1,0 +1,28 @@
+<section data-section-id="overview" class="card">
+  <h3>Overview</h3>
+  <p data-bind="fields.summary">Template overview placeholder.</p>
+  <label>
+    Status
+    <input type="text" data-bind="fields.status" />
+  </label>
+  <label>
+    Notes
+    <textarea data-bind="fields.notes"></textarea>
+  </label>
+  <button class="button" data-open-resource="res-overview">Open resource</button>
+</section>
+
+<section data-section-id="paths" class="card">
+  <h3>Paths</h3>
+  <div data-mount="path-picker"></div>
+</section>
+
+<section data-section-id="targets" class="card">
+  <h3>Targets</h3>
+  <div data-mount="target-picker"></div>
+</section>
+
+<section data-section-id="tests" class="card">
+  <h3>Tests</h3>
+  <div data-mount="tests-table"></div>
+</section>
