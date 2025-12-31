@@ -29,6 +29,11 @@
   border-color: #2563eb;
 }
 
+.button.ghost {
+  background: transparent;
+  color: inherit;
+}
+
 .button[disabled] {
   opacity: 0.5;
   cursor: not-allowed;

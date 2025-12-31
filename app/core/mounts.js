@@ -15,25 +15,34 @@ const createOption = (item, type, name, checked, disabled) => {
 
 function mountPathPicker(el, pack, store) {
   el.innerHTML = ''
-  const state = store.get('paths.selection') || { trials: [], commit: '' }
-  const trialLimit = pack.rules?.trialMax || pack.rules?.trialsMax
+  const state = store.get('path') || { trials: [], commit: '' }
+  const trialLimit = pack.rules?.path?.trialMax || pack.rules?.trialsMax
   const trialsContainer = document.createElement('div')
   const title = document.createElement('h3')
   title.textContent = 'Trials'
   trialsContainer.append(title)
+  const updateTrialDisables = () => {
+    if (!trialLimit) return
+    const count = (store.get('path.trials') || []).length
+    trialsContainer.querySelectorAll('input[name="trial"]').forEach((input) => {
+      input.disabled = !input.checked && count >= trialLimit
+    })
+  }
   ;(pack.paths?.trials || []).forEach((trial) => {
     const checked = state.trials?.includes(trial.id)
     const disabled = trialLimit ? state.trials?.length >= trialLimit && !checked : false
     const { label, input } = createOption(trial, 'checkbox', 'trial', checked, disabled)
     input.addEventListener('change', () => {
-      const current = new Set(store.get('paths.selection.trials') || [])
+      const current = new Set(store.get('path.trials') || [])
       if (input.checked) current.add(trial.id)
       else current.delete(trial.id)
-      store.set('paths.selection.trials', Array.from(current))
+      store.set('path.trials', Array.from(current))
+      updateTrialDisables()
     })
     trialsContainer.append(label)
   })
   el.append(trialsContainer)
+  updateTrialDisables()
 
   const commitContainer = document.createElement('div')
   const commitTitle = document.createElement('h3')
@@ -43,7 +52,7 @@ function mountPathPicker(el, pack, store) {
     const checked = state.commit === commit.id
     const { label, input } = createOption(commit, 'radio', 'commit', checked)
     input.addEventListener('change', () => {
-      if (input.checked) store.set('paths.selection.commit', commit.id)
+      if (input.checked) store.set('path.commit', commit.id)
     })
     commitContainer.append(label)
   })
@@ -86,29 +95,87 @@ function mountTargetPicker(el, pack, store) {
   el.append(secondary)
 }
 
+const toTestsConfig = (tests) => (Array.isArray(tests) ? { groups: [], tests } : { groups: tests.groups || [], tests: tests.tests || [] })
+
+function renderTestRow(test, state, store) {
+  const row = document.createElement('div')
+  row.className = 'test-row'
+
+  const title = document.createElement('div')
+  title.className = 'test-title'
+  title.textContent = test.label || test.id
+
+  const controls = document.createElement('div')
+  controls.className = 'test-controls'
+
+  const verdict = state?.verdict || 'SKIP'
+
+  const radioGroup = document.createElement('div')
+  radioGroup.className = 'test-radios'
+
+  const makeRadio = (value, label) => {
+    const wrap = document.createElement('label')
+    wrap.className = 'test-radio'
+    const input = document.createElement('input')
+    input.type = 'radio'
+    input.name = `test-${test.id}`
+    input.value = value
+    input.checked = verdict === value
+    input.disabled = value === 'SKIP' && test.nonSkippable
+    input.addEventListener('change', () => {
+      if (input.checked) {
+        const current = store.get(`tests.${test.id}`) || { reason: '' }
+        store.set(`tests.${test.id}`, { ...current, verdict: value })
+      }
+    })
+    wrap.append(input, document.createTextNode(label))
+    return wrap
+  }
+
+  radioGroup.append(makeRadio('PASS', 'PASS'), makeRadio('FAIL', 'FAIL'), makeRadio('SKIP', 'SKIP'))
+
+  controls.append(radioGroup)
+
+  if (test.reasonField) {
+    const reason = document.createElement('textarea')
+    reason.placeholder = 'Notes / reason'
+    reason.rows = 2
+    reason.value = state?.reason || ''
+    reason.disabled = verdict === 'PASS'
+    reason.addEventListener('input', () => {
+      const current = store.get(`tests.${test.id}`) || { verdict: 'SKIP' }
+      store.set(`tests.${test.id}`, { ...current, reason: reason.value })
+    })
+    controls.append(reason)
+  }
+
+  row.append(title, controls)
+  return row
+}
+
 function mountTestsTable(el, pack, store) {
   el.innerHTML = ''
-  const table = document.createElement('table')
-  table.style.width = '100%'
-  const tbody = document.createElement('tbody')
-  ;(pack.tests || []).forEach((test, idx) => {
-    const row = document.createElement('tr')
-    const title = document.createElement('td')
-    title.textContent = test.title || test.id
-    const status = document.createElement('td')
-    const skip = document.createElement('input')
-    skip.type = 'checkbox'
-    skip.checked = Boolean(store.get(`tests[${idx}].skipped`))
-    skip.addEventListener('change', () => {
-      const current = store.get(`tests[${idx}]`) || { id: test.id, status: 'pending', skipped: false }
-      store.set(`tests[${idx}]`, { ...current, skipped: skip.checked })
-    })
-    status.append(skip)
-    row.append(title, status)
-    tbody.append(row)
+  const config = toTestsConfig(pack.tests || {})
+  const groups = new Map((config.groups || []).map((g) => [g.id, g.label || g.id]))
+
+  const groupsOrder = [...new Set((config.tests || []).map((t) => t.group || 'default'))]
+  groupsOrder.forEach((groupId) => {
+    const groupLabel = groups.get(groupId) || (groupId === 'default' ? 'Tests' : groupId)
+    const groupWrap = document.createElement('section')
+    groupWrap.className = 'test-group'
+    const header = document.createElement('h3')
+    header.textContent = groupLabel
+    groupWrap.append(header)
+
+    config.tests
+      .filter((t) => (t.group || 'default') === groupId)
+      .forEach((test) => {
+        const state = store.get(`tests.${test.id}`) || { verdict: 'SKIP', reason: '' }
+        groupWrap.append(renderTestRow(test, state, store))
+      })
+
+    el.append(groupWrap)
   })
-  table.append(tbody)
-  el.append(table)
 }
 
 export function mountAll(rootEl, pack, store) {

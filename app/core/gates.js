@@ -1,16 +1,27 @@
+const getValueAtPath = (state, path) =>
+  path.split('.').reduce((acc, key) => (acc ? acc[key] : undefined), state)
+
+const isEmptyValue = (value) => {
+  if (value === undefined || value === null) return true
+  if (typeof value === 'string') return value.trim() === ''
+  if (Array.isArray(value)) return value.length === 0
+  return false
+}
+
 export function evaluateDone(rules = {}, state) {
   const blockers = []
-  const doneRules = rules.done || []
+  const doneRules = rules.doneGates || rules.done || []
 
   doneRules.forEach((rule) => {
     if (rule.type === 'requiredField') {
-      const path = rule.path
-      const value = path.split('.').reduce((acc, key) => (acc ? acc[key] : undefined), state)
-      if (!value) blockers.push(`Missing field: ${path}`)
+      const value = getValueAtPath(state, rule.path)
+      if (isEmptyValue(value)) blockers.push(rule.message || `Missing field: ${rule.path}`)
     }
     if (rule.type === 'requiredTestNotSkipped') {
-      const skipped = (state.tests || []).filter((t) => t.skipped)
-      if (skipped.length) blockers.push('Some tests are skipped')
+      const test = state.tests?.[rule.testId]
+      if (!test || test.verdict === 'SKIP') {
+        blockers.push(rule.message || `Test ${rule.testId} must not be skipped`)
+      }
     }
   })
 

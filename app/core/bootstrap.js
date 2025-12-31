@@ -14,8 +14,8 @@ export function bootstrap({ doorId, runId = 'default' }) {
   validatePack(pack, doorId)
 
   const restored = load(doorId, runId)
-  const initial = restored || createDefaultState(doorId, runId, pack.tests)
-  const store = createStore(initial)
+  const initial = restored || createDefaultState(doorId, runId, pack)
+  const store = createStore(initial, pack)
 
   const resourceMap = indexResources(pack.resourcesHtml)
   const drawer = createDrawer(resourceMap)
