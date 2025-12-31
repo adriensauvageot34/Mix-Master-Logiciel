@@ -1,28 +1,225 @@
-<section data-section-id="overview" class="card">
-  <h3>Overview</h3>
-  <p data-bind="fields.summary">P14 overview placeholder.</p>
-  <label>
-    Status
-    <input type="text" data-bind="fields.status" />
-  </label>
-  <label>
-    Notes
-    <textarea data-bind="fields.notes"></textarea>
-  </label>
-  <button class="button" data-open-resource="res-p14">Open resource</button>
+<!-- P14 — door.content.html -->
+<section class="card" data-section-id="state">
+  <h2>0) [STATE] — Bandeau d’état</h2>
+
+  <div class="row">
+    <div class="field">
+      <div class="label">Status</div>
+      <div class="controls">
+        <label><input type="radio" name="p14_status" value="ACTIVE" data-bind="status"> ACTIVE</label>
+        <label><input type="radio" name="p14_status" value="DONE" data-bind="status"> DONE</label>
+        <label><input type="radio" name="p14_status" value="NEEDS_RETEST" data-bind="status"> NEEDS_RETEST</label>
+        <label><input type="radio" name="p14_status" value="RISK" data-bind="status"> RISK</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="field">
+      <div class="label">Toggles</div>
+      <div class="controls">
+        <label><input type="checkbox" data-bind="toggles.sigOff"> [TOGGLE:SIG_OFF]</label>
+        <label><input type="checkbox" data-bind="toggles.ctrlOff"> [TOGGLE:CTRL_OFF]</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="field">
+      <div class="label">Checkpoint actuel</div>
+      <div class="controls">
+        <input type="text" placeholder="[CHECKPOINT:PH2_LOCKED] / [CHECKPOINT:PH3_LOCKED]" data-bind="checkpoint.current">
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="label">RISK_BADGE</div>
+      <div class="controls">
+        <input type="text" placeholder="trigger / note rapide" data-bind="risk.badge">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="field">
+      <div class="label">⚠ DEPENDS / REOPENS</div>
+      <div class="help">
+        ⚠ [DEPENDS_ON:P12] ⚠ [DEPENDS_ON:P13] ⚠ [DEPENDS_ON:P15] /
+        ⚠ [REOPENS:P12] ⚠ [REOPENS:P13]
+      </div>
+      <div class="controls">
+        <button class="btn" data-open-resource="p14-depends-reopens">Ouvrir DEPENDS / REOPENS</button>
+        <button class="btn" data-open-resource="p14-checkpoints">Ouvrir CHECKPOINTS</button>
+      </div>
+    </div>
+  </div>
 </section>
 
-<section data-section-id="paths" class="card">
-  <h3>Paths</h3>
+<section class="card" data-section-id="path">
+  <h2>1) PATH PICKER — TRIAL → COMMIT</h2>
+
+  <div class="help">
+    TRIAL: max 2 chemins. COMMIT: 1 chemin (obligatoire). Après COMMIT: pas de changement sans FAIL prouvé + trigger noté. [REF:R3-07]
+  </div>
+
   <div data-mount="path-picker"></div>
+
+  <div class="controls">
+    <button class="btn" data-open-resource="p14-techpack-paths">TECH PACK — Preset PATH</button>
+  </div>
 </section>
 
-<section data-section-id="targets" class="card">
-  <h3>Targets</h3>
+<section class="card" data-section-id="target">
+  <h2>1bis) TARGET PICKER — SCOPE</h2>
+
+  <div class="help">
+    PRIMARY: 1 rôle (obligatoire). SECONDARY: 0 à 2 max.
+    Si SECONDARY ≠ vide → pense aux tests SUPPORTS dans [TEST:ALWAYS].
+  </div>
+
   <div data-mount="target-picker"></div>
+
+  <div class="controls">
+    <button class="btn" data-open-resource="p14-techpack-targets">TECH PACK — Preset TARGET</button>
+  </div>
 </section>
 
-<section data-section-id="tests" class="card">
-  <h3>Tests</h3>
+<section class="card" data-section-id="core">
+  <h2>[CORE] — Exécution</h2>
+
+  <ul>
+    <li><strong>Objectif :</strong> organiser les rôles et figer une scène vocale stable, comme un seul instrument pilotable.</li>
+    <li><strong>Question :</strong> clair en rôle, stable en scène, cohérent sans effort d’écoute ?</li>
+    <li><strong>Contrat :</strong> la lead reste le message ; les couches restent du soutien ; la scène ne bouge pas “par humeur”. [REF:R3-04]</li>
+    <li><strong>Décide l’architecture :</strong> centre sacré, côtés maîtrisés, groupe cohérent.</li>
+    <li><strong>Routing-first :</strong> déclare où vit l’architecture avant de toucher aux traitements. [REF:R3-13]</li>
+    <li><strong>Interdit :</strong> habiller les côtés au point qu’ils deviennent la star.</li>
+    <li><strong>Preuves :</strong> A/B level-match (bypass), A/B SIG_OFF vs ON (level-match). [REF:R3-05]</li>
+    <li><strong>Dry doit tenir :</strong> si la lead ne tient pas seule → tu compenses → rollback. [REF:R3-11]</li>
+  </ul>
+
+  <div class="row">
+    <div class="field">
+      <div class="label">PATH_COMMIT</div>
+      <input type="text" placeholder="(auto-fill ou saisie)" data-bind="core.pathCommit">
+    </div>
+    <div class="field">
+      <div class="label">CROIX</div>
+      <input type="text" placeholder="(auto-fill ou saisie)" data-bind="core.croix">
+    </div>
+    <div class="field">
+      <div class="label">RISK_FOCUS</div>
+      <input type="text" placeholder="(auto-fill ou saisie)" data-bind="core.riskFocus">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="field">
+      <div class="label">TARGET_PRIMARY</div>
+      <input type="text" placeholder="(auto-fill ou saisie)" data-bind="core.targetPrimary">
+    </div>
+    <div class="field">
+      <div class="label">TARGET_SECONDARY</div>
+      <input type="text" placeholder="Aucun / ..." data-bind="core.targetSecondary">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="field">
+      <div class="label">CONSTATS</div>
+      <textarea rows="3" placeholder="constats → notes porte / oreille neuve" data-bind="core.constats"></textarea>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="field">
+      <div class="label">Référence (si utilisée)</div>
+      <div class="controls">
+        <label><input type="checkbox" data-bind="reference.used"> Reference mode utilisé</label>
+      </div>
+      <input type="text" placeholder="Je vérifie quoi exactement ?" data-bind="reference.whatToVerify">
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="btn" data-open-resource="p14-listen-panels">LISTEN PANELS</button>
+    <button class="btn" data-open-resource="p14-busmap">BUSMAP:P14</button>
+    <button class="btn" data-open-resource="p14-techpack-general">TECH PACK — Général</button>
+    <button class="btn danger" data-open-resource="p14-redflags">[IF:FAIL] RED FLAGS</button>
+  </div>
+
+  <div class="help">
+    STOP si: lead non indispensable / côtés conversables / largeur fragilise le centre / bus devient béquille. [REF:R3-03]
+  </div>
+</section>
+
+<section class="card" data-section-id="tests">
+  <h2>2) [TEST:ALWAYS] (20–40s)</h2>
+
+  <div class="help">
+    Règles rapides:
+    <ul>
+      <li>PASS partout → HANDOFF + JOURNAL → porte suivante.</li>
+      <li>Si <strong>SIG_OFF vs ON</strong> est SKIP → porte ≠ DONE.</li>
+      <li>Si <strong>PATH_COMMIT validé</strong> est SKIP → porte ≠ DONE.</li>
+    </ul>
+  </div>
+
   <div data-mount="tests-table"></div>
+
+  <div class="controls">
+    <button class="btn danger" data-open-resource="p14-symptomes-signature">[IF:FAIL] Symptômes signature</button>
+    <button class="btn danger" data-open-resource="p14-symptomes-socle">[IF:FAIL] Symptômes socle (PH2)</button>
+  </div>
+</section>
+
+<section class="card" data-section-id="handoff">
+  <h2>12) HANDOFF (3 lignes max)</h2>
+
+  <ul>
+    <li>Si tous les tests PASS : gèle l’architecture, note PATH_COMMIT + TARGET, et avance. [REF:R3-07]</li>
+    <li>Si FAIL : applique une seule action, re-test immédiat, STOP. [REF:R3-09]</li>
+    <li>Si tu compenses : rollback Phase 2, puis reviens. [REF:R3-01]</li>
+  </ul>
+
+  <div class="field">
+    <div class="label">Handoff</div>
+    <textarea rows="3" placeholder="3 lignes max (ce qui est figé + prochaine porte)" data-bind="handoff.text"></textarea>
+  </div>
+</section>
+
+<section class="card" data-section-id="notes">
+  <h2>13) NOTES — Porte (SCOPE=door)</h2>
+
+  <div class="field">
+    <div class="label">TRIAL: → +apport / -casse</div>
+    <textarea rows="2" data-bind="notes.trial"></textarea>
+  </div>
+
+  <div class="field">
+    <div class="label">CONSTATS</div>
+    <textarea rows="2" data-bind="notes.constats"></textarea>
+  </div>
+
+  <div class="field">
+    <div class="label">Après COMMIT (référencer CROIX ou RISK_FOCUS)</div>
+    <textarea rows="2" data-bind="notes.afterCommit"></textarea>
+  </div>
+
+  <div class="controls">
+    <button class="btn" data-open-resource="p14-mini-modules">Mini-modules standard</button>
+  </div>
+</section>
+
+<section class="card" data-section-id="journal">
+  <h2>14) JOURNAL — 1 ligne minimum</h2>
+
+  <div class="field">
+    <div class="label">Journal</div>
+    <textarea rows="2" placeholder="P14 : date / version / ce qui a été figé" data-bind="journal.entry"></textarea>
+  </div>
+
+  <div class="controls">
+    <button class="btn" data-open-resource="p14-charte-r3-19">Charte — R3-19</button>
+  </div>
 </section>
