@@ -1,8 +1,17 @@
 {
   "primary": [
-    { "id": "primary-p14", "label": "Primary P14" }
+    { "id": "LEAD", "label": "LEAD" },
+    { "id": "DOUBLES", "label": "DOUBLES" },
+    { "id": "HARMONIES", "label": "HARMONIES" },
+    { "id": "ADLIBS", "label": "ADLIBS" },
+    { "id": "CHOPS", "label": "CHOPS" },
+    { "id": "RETURNS", "label": "RETURNS (vox FX)" }
   ],
   "secondary": [
-    { "id": "secondary-p14", "label": "Secondary P14" }
+    { "id": "DOUBLES", "label": "DOUBLES" },
+    { "id": "HARMONIES", "label": "HARMONIES" },
+    { "id": "ADLIBS", "label": "ADLIBS" },
+    { "id": "CHOPS", "label": "CHOPS" },
+    { "id": "RETURNS", "label": "RETURNS (vox FX)" }
   ]
 }
