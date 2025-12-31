@@ -1,4 +1,223 @@
-<article class="resource" data-resource-id="res-p14">
-  <h4>P14 Resource</h4>
-  <p>Placeholder resource for P14.</p>
+<!-- P14 — door.resources.html -->
+
+<article class="resource" data-resource-id="p14-redflags" data-tags="AREA:P14 ISSUE:ROLE_UNCLEAR ISSUE:CENTER_FLOAT ISSUE:SIDES_CONVERSABLE ISSUE:WIDE_MONO_FRAGILE ISSUE:BUS_CRUTCH REF:R3-04 REF:R3-06 REF:R3-03">
+  <h2>[IF:FAIL] RED FLAGS (FAIL direct)</h2>
+  <ul>
+    <li>Si tu ne sais pas “qui parle” → FAIL (rôle non décidé).</li>
+    <li>Si le centre bouge / tremble → FAIL (base instable).</li>
+    <li>Si les côtés sont conversables → FAIL (second rôle cassé).</li>
+    <li>Si large mais fragile en mono → FAIL (illusion).</li>
+    <li>Si sans bus tout s’écroule → FAIL (béquille). [REF:R3-03]</li>
+    <li>Si le lead n’est pas indispensable → FAIL (plus de star).</li>
+  </ul>
+</article>
+
+<article class="resource" data-resource-id="p14-symptomes-signature" data-tags="AREA:P14 ISSUE:ARCHITECTURE_FAIL FIX:ROLE_HIERARCHY FIX:CENTER_SACRED FIX:SIDES_DEPRIORITIZE REF:R3-05 REF:R3-06 REF:R3-03 REF:R3-10 REF:R3-11 REF:R3-09">
+  <h2>[IF:FAIL] Symptômes signature → Action (format RUN)</h2>
+
+  <h3>A) Universels (7)</h3>
+  <ol>
+    <li>
+      <strong>Rôle du message flou</strong><br>
+      CAUSE: hiérarchie non assumée, couches trop “lead-like”.<br>
+      ACTION: désigne une seule voix responsable du message, baisse la lisibilité des couches.<br>
+      RE-TEST: écoute en contexte + “Mute SUPPORTS”. [LISTEN:Role]
+    </li>
+    <li>
+      <strong>Centre qui flotte</strong><br>
+      CAUSE: ancrage centre insuffisant, trop d’animation sur le centre.<br>
+      ACTION: simplifie le centre jusqu’à une colonne stable.<br>
+      RE-TEST: passage dense + mono. [LISTEN:CenterSacred]
+    </li>
+    <li>
+      <strong>Centre contaminé par la largeur</strong><br>
+      CAUSE: largeur appliquée au centre, ou sides qui tirent l’attention.<br>
+      ACTION: retire l’élargissement du centre, laisse la largeur vivre sur les côtés.<br>
+      RE-TEST: side-only puis mono. [LISTEN:MonoStability]
+    </li>
+    <li>
+      <strong>Centre agressif (fatigue)</strong><br>
+      CAUSE: zone d’attention trop excitée au centre, densité mal répartie.<br>
+      ACTION: calme le centre jusqu’au confort avant embellissement.<br>
+      RE-TEST: bas volume + passage dense. [REF:R3-06]
+    </li>
+    <li>
+      <strong>Côtés conversables</strong><br>
+      CAUSE: supports trop lisibles / trop devant.<br>
+      ACTION: recule les côtés + retire leurs pics d’attention.<br>
+      RE-TEST: side-only + “Mute LEAD”.
+    </li>
+    <li>
+      <strong>Largeur cheap / wobble / déséquilibre</strong><br>
+      CAUSE: largeur forcée, cohérence latérale absente.<br>
+      ACTION: fixe une largeur officielle + rééquilibre L/R.<br>
+      RE-TEST: side-only + mono.
+    </li>
+    <li>
+      <strong>Groupe pas “un seul instrument”</strong><br>
+      CAUSE: décisions dispersées, bus utilisé pour réparer.<br>
+      ACTION: bus clairs (centre/côtés/final) + retire retouches partout.<br>
+      RE-TEST: bypass bus vocal final + A/B level-match. [REF:R3-05]<br>
+      STOP: si tu répares au bus, retourne construire les rôles. [REF:R3-03]
+    </li>
+  </ol>
+
+  <h3>B) Spécifiques au PATH_COMMIT (5)</h3>
+  <ol>
+    <li><strong>Wide doubles → mono creuse</strong> → réduis largeur supports → re-test mono + dense.</li>
+    <li><strong>Stacks massifs → diction noyée</strong> → retire lisibilité couches → re-test bas volume + mute supports.</li>
+    <li><strong>Call & response → adlibs mini lead</strong> → audible oui / lisible non → re-test mute lead + side-only.</li>
+    <li><strong>Whispers/air → fizz/bruit</strong> → baisse zone d’attention → re-test dense + bas volume. [REF:R3-10]</li>
+    <li><strong>Formant/Chops → plusieurs personnages</strong> → centre reprend autorité → re-test mute supports + dense.</li>
+  </ol>
+
+  <h3>C) Spécifiques TARGET (3)</h3>
+  <ol>
+    <li><strong>DOUBLES: flam</strong> → stabiliser timing → re-test dense + side-only.</li>
+    <li><strong>HARMONIES: détourne focus</strong> → reculer + enlever lecture texte → re-test mute supports puis réintro.</li>
+    <li><strong>ADLIBS/CHOPS: vole l’oreille</strong> → tuer pics latéraux → re-test side-only + mute lead.</li>
+  </ol>
+</article>
+
+<article class="resource" data-resource-id="p14-symptomes-socle" data-tags="AREA:P14 ISSUE:SOCLE_FAIL FIX:ROLLBACK_PH2 REF:R3-01 REF:R3-11 REF:R3-03 REF:R3-13 REF:R3-16 REF:R3-05">
+  <h2>[IF:FAIL] Symptômes socle (retour Phase 2) → Action</h2>
+  <ol>
+    <li>
+      <strong>Lead non lisible même sans couches</strong><br>
+      ACTION: rollback PH2 (place/masquage/contrôle). [REF:R3-01]<br>
+      RE-TEST: “Mute SUPPORTS” + SIG_OFF vs ON.<br>
+      STOP: si la lead ne tient pas dry, P14 ne peut pas réparer. [REF:R3-11]
+    </li>
+    <li>
+      <strong>Sibilance ingérable au centre</strong><br>
+      ACTION: rollback contrôle PH2, puis reviens figer l’architecture. [REF:R3-01]<br>
+      RE-TEST: bas volume + passage dense.
+    </li>
+    <li>
+      <strong>Bus vocal utilisé comme correcteur</strong><br>
+      ACTION: retire réparation du bus, corrige à la source. [REF:R3-03]<br>
+      RE-TEST: bypass bus vocal final + A/B level-match. [REF:R3-05]
+    </li>
+    <li>
+      <strong>FX indispensables pour placer les backs</strong><br>
+      ACTION: fixe rôle d’abord (niveau/timbre/densité), FX ensuite. [REF:R3-13]<br>
+      RE-TEST: coupe FX puis réactive.
+    </li>
+    <li>
+      <strong>Couplet/refrain = autre monde</strong><br>
+      ACTION: forme unique, ne change que l’intensité. [REF:R3-16]<br>
+      RE-TEST: A/B sections + bas volume.
+    </li>
+  </ol>
+</article>
+
+<article class="resource" data-resource-id="p14-listen-panels" data-tags="AREA:P14 REF:R3-05 REF:R3-09">
+  <h2>LISTEN PANELS</h2>
+  <ul>
+    <li><strong>[LISTEN:Role]</strong> : “qui porte la phrase ?” / “audible vs lisible” / “lead indispensable”.</li>
+    <li><strong>[LISTEN:CenterSacred]</strong> : centre stable / pas de wobble / confort / corps.</li>
+    <li><strong>[LISTEN:MonoStability]</strong> : mono ne creuse pas / side-only ne raconte pas / centre reste sacré.</li>
+    <li><strong>[OPT] LISTEN SCAN</strong> : centre seul → côtés seuls → ensemble → bus final OFF/ON.</li>
+  </ul>
+</article>
+
+<article class="resource" data-resource-id="p14-techpack-general" data-tags="AREA:P14 FIX:BUS_ROUTING FIX:SUPPORTS_RULES REF:R3-14">
+  <h2>TECH PACK — GÉNÉRAL P14</h2>
+  <ul>
+    <li>“Groupe vocal” = un instrument pilotable via bus (cohésion, glue, contrôle global).</li>
+    <li>Bus comp de groupe : cohésion, pas correction de prise.</li>
+    <li>Wet/Dry sur bus : doser un traitement comme un parallèle intégré.</li>
+    <li>Supports : plus sombres, plus larges, moins forts (soutien, pas concurrence).</li>
+    <li>Largeur : volume L/R, EQ L/R, timing L/R (prudence).</li>
+    <li>Wideners : surtout supports, rarement lead (centre stable).</li>
+    <li>Espace : lead = contrôlé ; supports = plus large et plus “arrière”.</li>
+    <li>De-essing : souvent plus strict sur backs/chœurs.</li>
+    <li>Parallèles : contrôle fort en parallèle plutôt qu’en direct sur le centre.</li>
+    <li>Routing conseillé : bus centre / bus côtés / bus vocal final / bus élargissement dédié.</li>
+    <li>Checks obligatoires si élargis : mono, side-only, voix creuse, stabilité centre/côtés. [REF:R3-14]</li>
+  </ul>
+</article>
+
+<article class="resource" data-resource-id="p14-techpack-paths" data-tags="AREA:P14 FIX:PATH_PRESETS REF:R3-05 REF:R3-10 REF:R3-14">
+  <h2>TECH PACK — Preset PATH (un par chemin)</h2>
+  <ul>
+    <li><strong>Lead solo centre</strong> : centre très stable ; supports rares ; risque “petit” si prod large.</li>
+    <li><strong>Doubles tight mono</strong> : cohésion temporelle prioritaire ; risque flam ; utile articulation.</li>
+    <li><strong>Wide doubles</strong> : micro-décorrélation ; risque mono creux/peigne ; garde un contrôle “mono-safe”.</li>
+    <li><strong>Stacks massifs</strong> : masse chorale ; risque bouillie/fatigue ; centre prioritaire.</li>
+    <li><strong>Whispers/air</strong> : texture très bas ; risque fizz/bruit ; discipline zone d’attention. [REF:R3-10]</li>
+    <li><strong>Harmonies</strong> : rôle émotion ; risque détourner focus ; place derrière et enlève lecture texte.</li>
+    <li><strong>Call & response</strong> : dialogue ; risque adlibs conversables ; “audible oui, lisible non”.</li>
+    <li><strong>Formant personas</strong> : personnages ; risque “deux personnes” ; centre reste autorité.</li>
+    <li><strong>Chops/voix-instrument</strong> : arrangement ; risque prend le lead ; fixe plafond de priorité.</li>
+    <li><strong>Mid/Side design</strong> : centre ≠ côtés ; risque centre fragilisé ; protège centre, valide mono.</li>
+  </ul>
+</article>
+
+<article class="resource" data-resource-id="p14-techpack-targets" data-tags="AREA:P14 FIX:TARGET_PRESETS REF:R3-05">
+  <h2>TECH PACK — Preset TARGET</h2>
+  <ul>
+    <li><strong>Lead</strong> : intelligible, centre stable, confort ; aucune largeur qui contamine.</li>
+    <li><strong>Doubles</strong> : plus stables que naturelles, moins lisibles, plus larges ; de-ess renforcé.</li>
+    <li><strong>Harmonies</strong> : plus arrière, plus matière que discours ; éviter qu’elles “racontent”.</li>
+    <li><strong>Adlibs</strong> : ponctuation ; éviter détails qui volent l’oreille.</li>
+    <li><strong>Chops</strong> : instrument ; décider lead ou décor ; si décor, limiter priorité.</li>
+    <li><strong>Returns (vox FX)</strong> : sert la place, ne la remplace pas ; si tout bouge sans FX, décision mauvaise.</li>
+  </ul>
+</article>
+
+<article class="resource" data-resource-id="p14-busmap" data-tags="AREA:P14 FIX:ROUTING REF:R3-05 REF:R3-03">
+  <h2>[BUSMAP:P14] Routing conseillé</h2>
+
+  <h3>Schéma</h3>
+  <ul>
+    <li>LEAD → Bus Centre → Bus Vocal Final → Vocal Master</li>
+    <li>DOUBLES/HARMONIES/ADLIBS/CHOPS → Bus Côtés (ou bus par rôle) → Bus Vocal Final → Vocal Master</li>
+    <li>Parallèle Comp / Parallèle Sat → Bus Vocal Final</li>
+    <li>Vox FX Returns → (Bus FX Vocal option) → Bus Vocal Final</li>
+  </ul>
+
+  <h3>ON/OFF attendu</h3>
+  <ul>
+    <li><strong>Bus Centre</strong> ON: centre stable / OFF: reste logique (un peu moins fini)</li>
+    <li><strong>Bus Côtés</strong> ON: soutien/largeur/texture / OFF: lead autosuffisante</li>
+    <li><strong>Bus Vocal Final</strong> ON: cohésion légère / OFF: pas d’effondrement (sinon béquille) [REF:R3-03]</li>
+    <li><strong>Bus d’élargissement</strong> ON: largeur supports / OFF: centre inchangé</li>
+  </ul>
+</article>
+
+<article class="resource" data-resource-id="p14-mini-modules" data-tags="AREA:P14 FIX:MONO_FIRST FIX:CENTER_SACRED FIX:BUS_COHESION REF:R3-03">
+  <h2>MINI-MODULES STANDARD</h2>
+  <ul>
+    <li><strong>Mono d’abord</strong> : si largeur casse en mono → réduis largeur supports avant tout.</li>
+    <li><strong>Centre sacré</strong> : si côtés tirent l’attention → retire pics (attaques/sifflantes/mots) avant de monter le centre.</li>
+    <li><strong>Bus = cohésion</strong> : si tu corriges au bus → reviens aux bus par rôle, puis revalide bus final OFF/ON. [REF:R3-03]</li>
+  </ul>
+</article>
+
+<article class="resource" data-resource-id="p14-depends-reopens" data-tags="AREA:P14 REF:R3-03 REF:R3-10 REF:R3-13">
+  <h2>⚠ DEPENDS / REOPENS</h2>
+  <ul>
+    <li>⚠ DEPENDS_ON:P12 si “couleur” incohérente ou fatigue vient du timbre (avant architecture).</li>
+    <li>⚠ DEPENDS_ON:P13 si profondeur dépend des FX ou place s’effondre sans FX.</li>
+    <li>⚠ DEPENDS_ON:P15 si tu veux transformer l’architecture en performance (gating/glitch/stutter).</li>
+    <li>⚠ REOPENS:P12 si P14 te pousse à embellir le centre pour réparer une faiblesse. [REF:R3-03]</li>
+    <li>⚠ REOPENS:P13 si tu utilises l’espace pour remplacer la hiérarchie. [REF:R3-10]</li>
+  </ul>
+</article>
+
+<article class="resource" data-resource-id="p14-checkpoints" data-tags="AREA:P14 REF:R3-18">
+  <h2>CHECKPOINTS</h2>
+  <ul>
+    <li><strong>[CHECKPOINT:PH3_LOCKED]</strong> : “Largeur officielle”, “Profondeur officielle”, “Lead indispensable”, “Bus final = optimisation”.</li>
+    <li>Si <strong>RISK_BADGE</strong> ≠ vide : note trigger + ce qui est ON/OFF + le test qui valide. [REF:R3-18]</li>
+  </ul>
+</article>
+
+<article class="resource" data-resource-id="p14-charte-r3-19" data-tags="AREA:P14 REF:R3-19">
+  <h2>Charte — R3-19 — TARGET explicite</h2>
+  <p>
+    Chaque porte déclare TARGET_PRIMARY et TARGET_SECONDARY dès qu’elle touche un traitement ;
+    supports traités seulement si porte concernée ou FAIL prouvé.
+  </p>
 </article>
