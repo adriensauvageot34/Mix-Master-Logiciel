@@ -1,7 +1,19 @@
 {
-  "trialMax": 1,
-  "commitRequired": true,
-  "done": [
-    { "type": "requiredField", "path": "paths.selection.commit" }
+  "path": { "trialMax": 2, "commitRequired": true, "commitUnique": true },
+  "targets": {
+    "primaryRequired": true,
+    "primaryUnique": true,
+    "primaryDefault": "LEAD",
+    "secondaryMax": 2
+  },
+  "supportsPolicy": {
+    "enabled": true,
+    "note": "Stub: policy détaillée appliquée par l'engine si présent."
+  },
+  "doneGates": [
+    { "type": "requiredField", "path": "path.commit", "message": "PATH_COMMIT manquant" },
+    { "type": "requiredField", "path": "targets.primary", "message": "TARGET_PRIMARY manquant" },
+    { "type": "requiredTestNotSkipped", "testId": "ab_sig_off", "message": "Test A/B SIG_OFF vs ON requis (non SKIP)" },
+    { "type": "requiredTestNotSkipped", "testId": "ab_path_commit", "message": "Test PATH_COMMIT validé requis (non SKIP)" }
   ]
 }
