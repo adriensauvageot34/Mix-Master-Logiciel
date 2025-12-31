@@ -15,11 +15,18 @@ export function normalizePack(pack) {
     t3Order: pack.manifest?.t3Order || []
   }
 
+  const testsConfig = Array.isArray(pack.tests)
+    ? { groups: [], tests: pack.tests }
+    : {
+        groups: pack.tests?.groups || [],
+        tests: pack.tests?.tests || []
+      }
+
   return {
     ...pack,
     manifest,
     rules: pack.rules || { done: [] },
-    tests: pack.tests || [],
+    tests: testsConfig,
     paths: pack.paths || { trials: [], commits: [] },
     targets: pack.targets || { primary: [], secondary: [] },
     contentHtml: pack.contentHtml || '',

@@ -19,6 +19,9 @@ const resources = fs.readFileSync(path.join(dir, 'door.resources.html'), 'utf8')
   if (!content.includes(`data-section-id="${section.id}"`)) {
     errors.push(`Missing section content for ${section.id}`)
   }
+  if (section.mount && !content.includes(`data-mount="${section.mount}"`)) {
+    errors.push(`Missing mount slot for ${section.mount} in section ${section.id}`)
+  }
 })
 
 ;(manifest.resources || []).forEach((res) => {
@@ -28,7 +31,8 @@ const resources = fs.readFileSync(path.join(dir, 'door.resources.html'), 'utf8')
 })
 
 const ids = new Set()
-;(tests || []).forEach((test) => {
+const testList = Array.isArray(tests) ? tests : tests.tests || []
+;(testList || []).forEach((test) => {
   if (ids.has(test.id)) errors.push(`Duplicate test id ${test.id}`)
   ids.add(test.id)
 })

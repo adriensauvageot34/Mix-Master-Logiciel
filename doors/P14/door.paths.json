@@ -1,14 +1,26 @@
 {
-  "paths": [
-    { "id": "lead_solo_centre", "label": "Lead solo centre (autorité texte)", "croix": "ampleur latérale", "riskFocus": "centre “petit”" },
-    { "id": "doubles_tight_mono", "label": "Doubles tight mono (renfort articulation)", "croix": "largeur large", "riskFocus": "flam / peigne" },
-    { "id": "wide_doubles", "label": "Wide doubles (microshift/haas/chorus léger)", "croix": "mono absolu", "riskFocus": "voix creuse mono" },
-    { "id": "stacks_massifs", "label": "Stacks massifs (wall / anthem)", "croix": "diction chirurgicale", "riskFocus": "bouillie / fatigue" },
-    { "id": "whispers_air", "label": "Whispers / air layers (intimité / hype)", "croix": "propreté “noise”", "riskFocus": "S/fizz / bruit" },
-    { "id": "harmonies", "label": "Harmonies (musical / émotion)", "croix": "sobriété rap", "riskFocus": "focus détourné" },
-    { "id": "call_response", "label": "Call & response adlibs (dialogue)", "croix": "lisibilité simple", "riskFocus": "adlibs conversables" },
-    { "id": "formant_personas", "label": "Formant personas (rôles/personnages)", "croix": "cohérence unique", "riskFocus": "“deux personnes”" },
-    { "id": "chops_voix_instrument", "label": "Chops / voix-instrument (hook)", "croix": "lead pure", "riskFocus": "prend le lead" },
-    { "id": "mid_side_design", "label": "Mid/Side design (centre ≠ côtés)", "croix": "simplicité", "riskFocus": "centre fragilisé" }
+  "trials": [
+    { "id": "lead_solo_centre", "label": "Lead solo centre (autorité texte)", "croix": "Ampleur latérale", "riskFocus": "Centre “petit”" },
+    { "id": "doubles_tight_mono", "label": "Doubles tight mono (renfort articulation)", "croix": "Largeur large", "riskFocus": "Flam / peigne" },
+    { "id": "wide_doubles", "label": "Wide doubles (microshift/haas/chorus léger)", "croix": "Mono absolu", "riskFocus": "Voix creuse mono" },
+    { "id": "stacks_massifs", "label": "Stacks massifs (wall / anthem)", "croix": "Diction chirurgicale", "riskFocus": "Bouillie / fatigue" },
+    { "id": "whispers_air", "label": "Whispers / air layers (intimité / hype)", "croix": "Propreté “noise”", "riskFocus": "S/fizz / bruit" },
+    { "id": "harmonies", "label": "Harmonies (musical / émotion)", "croix": "Sobriété rap", "riskFocus": "Focus détourné" },
+    { "id": "call_response", "label": "Call & response adlibs (dialogue)", "croix": "Lisibilité simple", "riskFocus": "Adlibs conversables" },
+    { "id": "formant_personas", "label": "Formant personas (rôles/personnages)", "croix": "Cohérence unique", "riskFocus": "Deux personnes" },
+    { "id": "chops_voix_instrument", "label": "Chops / voix-instrument (hook)", "croix": "Lead pure", "riskFocus": "Prend le lead" },
+    { "id": "mid_side_design", "label": "Mid/Side design (centre ≠ côtés)", "croix": "Simplicité", "riskFocus": "Centre fragilisé" }
+  ],
+  "commits": [
+    { "id": "lead_solo_centre", "label": "Lead solo centre (autorité texte)", "croix": "Ampleur latérale", "riskFocus": "Centre “petit”" },
+    { "id": "doubles_tight_mono", "label": "Doubles tight mono (renfort articulation)", "croix": "Largeur large", "riskFocus": "Flam / peigne" },
+    { "id": "wide_doubles", "label": "Wide doubles (microshift/haas/chorus léger)", "croix": "Mono absolu", "riskFocus": "Voix creuse mono" },
+    { "id": "stacks_massifs", "label": "Stacks massifs (wall / anthem)", "croix": "Diction chirurgicale", "riskFocus": "Bouillie / fatigue" },
+    { "id": "whispers_air", "label": "Whispers / air layers (intimité / hype)", "croix": "Propreté “noise”", "riskFocus": "S/fizz / bruit" },
+    { "id": "harmonies", "label": "Harmonies (musical / émotion)", "croix": "Sobriété rap", "riskFocus": "Focus détourné" },
+    { "id": "call_response", "label": "Call & response adlibs (dialogue)", "croix": "Lisibilité simple", "riskFocus": "Adlibs conversables" },
+    { "id": "formant_personas", "label": "Formant personas (rôles/personnages)", "croix": "Cohérence unique", "riskFocus": "Deux personnes" },
+    { "id": "chops_voix_instrument", "label": "Chops / voix-instrument (hook)", "croix": "Lead pure", "riskFocus": "Prend le lead" },
+    { "id": "mid_side_design", "label": "Mid/Side design (centre ≠ côtés)", "croix": "Simplicité", "riskFocus": "Centre fragilisé" }
   ]
 }

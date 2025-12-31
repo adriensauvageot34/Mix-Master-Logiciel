@@ -111,7 +111,7 @@
   </ol>
 </article>
 
-<article class="resource" data-resource-id="p14-listen-panels" data-tags="AREA:P14 REF:R3-05 REF:R3-09">
+<article class="resource" data-resource-id="p14-listen" data-tags="AREA:P14 REF:R3-05 REF:R3-09">
   <h2>LISTEN PANELS</h2>
   <ul>
     <li><strong>[LISTEN:Role]</strong> : “qui porte la phrase ?” / “audible vs lisible” / “lead indispensable”.</li>
@@ -121,8 +121,9 @@
   </ul>
 </article>
 
-<article class="resource" data-resource-id="p14-techpack-general" data-tags="AREA:P14 FIX:BUS_ROUTING FIX:SUPPORTS_RULES REF:R3-14">
-  <h2>TECH PACK — GÉNÉRAL P14</h2>
+<article class="resource" data-resource-id="p14-techpack" data-tags="AREA:P14 FIX:PATH_PRESETS FIX:TARGET_PRESETS FIX:SUPPORTS_RULES REF:R3-05 REF:R3-10 REF:R3-14 REF:R3-19">
+  <h2>TECH PACK — P14 (General, PATH, TARGET)</h2>
+  <h3>Général</h3>
   <ul>
     <li>“Groupe vocal” = un instrument pilotable via bus (cohésion, glue, contrôle global).</li>
     <li>Bus comp de groupe : cohésion, pas correction de prise.</li>
@@ -136,10 +137,8 @@
     <li>Routing conseillé : bus centre / bus côtés / bus vocal final / bus élargissement dédié.</li>
     <li>Checks obligatoires si élargis : mono, side-only, voix creuse, stabilité centre/côtés. [REF:R3-14]</li>
   </ul>
-</article>
 
-<article class="resource" data-resource-id="p14-techpack-paths" data-tags="AREA:P14 FIX:PATH_PRESETS REF:R3-05 REF:R3-10 REF:R3-14">
-  <h2>TECH PACK — Preset PATH (un par chemin)</h2>
+  <h3>Preset PATH (un par chemin)</h3>
   <ul>
     <li><strong>Lead solo centre</strong> : centre très stable ; supports rares ; risque “petit” si prod large.</li>
     <li><strong>Doubles tight mono</strong> : cohésion temporelle prioritaire ; risque flam ; utile articulation.</li>
@@ -152,10 +151,8 @@
     <li><strong>Chops/voix-instrument</strong> : arrangement ; risque prend le lead ; fixe plafond de priorité.</li>
     <li><strong>Mid/Side design</strong> : centre ≠ côtés ; risque centre fragilisé ; protège centre, valide mono.</li>
   </ul>
-</article>
 
-<article class="resource" data-resource-id="p14-techpack-targets" data-tags="AREA:P14 FIX:TARGET_PRESETS REF:R3-05">
-  <h2>TECH PACK — Preset TARGET</h2>
+  <h3>Preset TARGET</h3>
   <ul>
     <li><strong>Lead</strong> : intelligible, centre stable, confort ; aucune largeur qui contamine.</li>
     <li><strong>Doubles</strong> : plus stables que naturelles, moins lisibles, plus larges ; de-ess renforcé.</li>
@@ -164,6 +161,9 @@
     <li><strong>Chops</strong> : instrument ; décider lead ou décor ; si décor, limiter priorité.</li>
     <li><strong>Returns (vox FX)</strong> : sert la place, ne la remplace pas ; si tout bouge sans FX, décision mauvaise.</li>
   </ul>
+
+  <h3>Charte TARGET (R3-19)</h3>
+  <p>Chaque porte déclare TARGET_PRIMARY et TARGET_SECONDARY dès qu’elle touche un traitement ; supports traités seulement si porte concernée ou FAIL prouvé.</p>
 </article>
 
 <article class="resource" data-resource-id="p14-busmap" data-tags="AREA:P14 FIX:ROUTING REF:R3-05 REF:R3-03">
@@ -195,7 +195,7 @@
   </ul>
 </article>
 
-<article class="resource" data-resource-id="p14-depends-reopens" data-tags="AREA:P14 REF:R3-03 REF:R3-10 REF:R3-13">
+<article class="resource" data-resource-id="p14-depends" data-tags="AREA:P14 REF:R3-03 REF:R3-10 REF:R3-13">
   <h2>⚠ DEPENDS / REOPENS</h2>
   <ul>
     <li>⚠ DEPENDS_ON:P12 si “couleur” incohérente ou fatigue vient du timbre (avant architecture).</li>
@@ -212,12 +212,4 @@
     <li><strong>[CHECKPOINT:PH3_LOCKED]</strong> : “Largeur officielle”, “Profondeur officielle”, “Lead indispensable”, “Bus final = optimisation”.</li>
     <li>Si <strong>RISK_BADGE</strong> ≠ vide : note trigger + ce qui est ON/OFF + le test qui valide. [REF:R3-18]</li>
   </ul>
-</article>
-
-<article class="resource" data-resource-id="p14-charte-r3-19" data-tags="AREA:P14 REF:R3-19">
-  <h2>Charte — R3-19 — TARGET explicite</h2>
-  <p>
-    Chaque porte déclare TARGET_PRIMARY et TARGET_SECONDARY dès qu’elle touche un traitement ;
-    supports traités seulement si porte concernée ou FAIL prouvé.
-  </p>
 </article>

@@ -25,7 +25,16 @@ export function renderRunBar(pack, store, modal) {
   const sync = () => {
     const { ok, blockers } = evaluateDone(pack.rules, store.get())
     doneBtn.disabled = !ok
-    blockersEl.textContent = ok ? '' : blockers.join(', ')
+    blockersEl.innerHTML = ''
+    if (!ok) {
+      const list = document.createElement('ul')
+      blockers.forEach((msg) => {
+        const item = document.createElement('li')
+        item.textContent = msg
+        list.append(item)
+      })
+      blockersEl.append(list)
+    }
   }
 
   sync()

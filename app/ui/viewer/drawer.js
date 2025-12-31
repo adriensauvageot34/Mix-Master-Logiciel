@@ -16,10 +16,16 @@ export function createDrawer(resourceMap) {
 
   const openResource = (resourceId) => {
     const node = resourceMap.get(resourceId)
-    if (!node) return
-    title.textContent = resourceId
     content.innerHTML = ''
-    content.append(node.cloneNode(true))
+    if (!node) {
+      title.textContent = resourceId
+      const fallback = document.createElement('p')
+      fallback.textContent = 'Ressource introuvable.'
+      content.append(fallback)
+    } else {
+      title.textContent = resourceId
+      content.append(node.cloneNode(true))
+    }
     drawer.classList.add('open')
   }
 

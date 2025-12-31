@@ -5,7 +5,7 @@ export function createNavigation(manifest, onNavigate) {
   ;(manifest.sections || []).forEach((section) => {
     const item = document.createElement('li')
     const link = document.createElement('button')
-    link.textContent = section.title
+    link.textContent = section.label || section.title || section.id
     link.type = 'button'
     link.dataset.sectionId = section.id
     link.addEventListener('click', () => onNavigate(section.id))

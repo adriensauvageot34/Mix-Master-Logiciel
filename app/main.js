@@ -7,4 +7,4 @@ import './themes/tokens.css'
 import './themes/theme-dark.css'
 import { bootstrap } from './core/bootstrap.js'
 
-bootstrap({ doorId: '_template' })
+bootstrap({ doorId: 'P14' })

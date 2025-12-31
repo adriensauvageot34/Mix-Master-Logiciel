@@ -1,3 +1,20 @@
 section.card {
-  border: 1px dashed var(--border);
+  border: 1px solid var(--border);
+}
+
+section.card .help {
+  color: #444;
+  font-size: 0.95rem;
+}
+
+section.card .controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+section.card .btn.danger {
+  background: #ffe7e6;
+  color: #a60000;
 }
