@@ -1,6 +1,8 @@
 {
   "id": "P14",
-  "title": "Door P14",
-  "intent": "Placeholder door for pack registration",
-  "version": "0.1.0"
+  "title": "Architecture vocale (centre / côtés / groupe)",
+  "intent": "Organiser les rôles (centre/côtés/groupe) et figer une scène vocale stable, mono-safe, cohérente.",
+  "prev": "P13",
+  "next": "P15",
+  "version": 1
 }
