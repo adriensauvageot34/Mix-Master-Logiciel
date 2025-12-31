@@ -1,11 +1,27 @@
 {
+  "t3Order": ["state", "path", "target", "core", "tests", "handoff", "notes", "journal"],
   "sections": [
-    { "id": "overview", "title": "Overview" },
-    { "id": "paths", "title": "Paths" },
-    { "id": "targets", "title": "Targets" },
-    { "id": "tests", "title": "Tests" }
+    { "id": "state", "label": "0) [STATE]", "level": 3, "collapsible": false, "mount": null },
+    { "id": "path", "label": "1) PATH (TRIAL → COMMIT)", "level": 3, "collapsible": false, "mount": "path-picker" },
+    { "id": "target", "label": "1bis) TARGET (SCOPE)", "level": 3, "collapsible": false, "mount": "target-picker" },
+    { "id": "core", "label": "[CORE] Exécution", "level": 3, "collapsible": false, "mount": null },
+    { "id": "tests", "label": "2) [TEST:ALWAYS]", "level": 3, "collapsible": false, "mount": "tests-table" },
+    { "id": "handoff", "label": "12) HANDOFF", "level": 3, "collapsible": false, "mount": null },
+    { "id": "notes", "label": "13) NOTES — Porte", "level": 3, "collapsible": false, "mount": null },
+    { "id": "journal", "label": "14) JOURNAL", "level": 3, "collapsible": false, "mount": null }
   ],
   "resources": [
-    { "id": "res-p14", "title": "P14 resource" }
+    { "id": "p14-redflags", "label": "[IF:FAIL] RED FLAGS", "kind": "FAIL" },
+    { "id": "p14-symptomes-signature", "label": "[IF:FAIL] Symptômes signature → Action", "kind": "FAIL" },
+    { "id": "p14-symptomes-socle", "label": "[IF:FAIL] Symptômes socle (retour PH2) → Action", "kind": "FAIL" },
+    { "id": "p14-listen-panels", "label": "LISTEN PANELS", "kind": "REF" },
+    { "id": "p14-techpack-general", "label": "TECH PACK — Général P14", "kind": "TECH" },
+    { "id": "p14-techpack-paths", "label": "TECH PACK — Preset PATH (par chemin)", "kind": "TECH" },
+    { "id": "p14-techpack-targets", "label": "TECH PACK — Preset TARGET", "kind": "TECH" },
+    { "id": "p14-busmap", "label": "[BUSMAP:P14] Routing conseillé", "kind": "TECH" },
+    { "id": "p14-mini-modules", "label": "MINI-MODULES STANDARD", "kind": "REF" },
+    { "id": "p14-depends-reopens", "label": "⚠ DEPENDS / REOPENS", "kind": "REF" },
+    { "id": "p14-checkpoints", "label": "CHECKPOINTS", "kind": "REF" },
+    { "id": "p14-charte-r3-19", "label": "Charte — R3-19 (TARGET explicite)", "kind": "REF" }
   ]
 }
