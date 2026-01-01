@@ -1,0 +1,65 @@
+{
+  "families": [
+    {
+      "id": "LEAD",
+      "label": "Lead",
+      "defaults": { "depth": "FRONT", "width": "CENTER", "height": "MID" },
+      "warnings": [
+        { "ifWidth": "WIDE", "msg": "Lead en WIDE: centre sacré en danger (mono)" }
+      ]
+    },
+    {
+      "id": "BACKS",
+      "label": "Backs/Doubles",
+      "defaults": { "depth": "MID", "width": "WIDE", "height": "MID" }
+    },
+    {
+      "id": "ADLIBS",
+      "label": "Adlibs",
+      "defaults": { "depth": "BACK", "width": "WIDE", "height": "HIGH" }
+    },
+    {
+      "id": "HARMONIES",
+      "label": "Harmonies",
+      "defaults": { "depth": "MID", "width": "WIDE", "height": "MID" }
+    },
+    {
+      "id": "CHOPS",
+      "label": "Chops/FX vocals",
+      "defaults": { "depth": "BACK", "width": "WIDE", "height": "HIGH" }
+    },
+    {
+      "id": "RETURNS",
+      "label": "Returns (vox FX)",
+      "defaults": { "depth": "BACK", "width": "WIDE", "height": "HIGH" }
+    },
+    {
+      "id": "OTHER",
+      "label": "Autre",
+      "defaults": { "depth": "MID", "width": "CENTER", "height": "MID" }
+    }
+  ],
+  "placement": {
+    "depth": [
+      { "id": "FRONT", "label": "Front", "help": "Diction lisible; risque sécheresse si trop dry." },
+      { "id": "MID", "label": "Mid", "help": "Équilibre présence/soutien." },
+      { "id": "BACK", "label": "Back", "help": "Soutien arrière; surveille la lisibilité." }
+    ],
+    "width": [
+      { "id": "CENTER", "label": "Center/Mono", "help": "Centre stable; moins large." },
+      { "id": "TIGHT", "label": "Tight", "help": "Largeur modérée; cohésion." },
+      { "id": "WIDE", "label": "Wide", "help": "Large; attention au mono." }
+    ],
+    "height": [
+      { "id": "LOW", "label": "Low", "help": "Poids; attention boue." },
+      { "id": "MID", "label": "Mid", "help": "Balance naturelle." },
+      { "id": "HIGH", "label": "High", "help": "Aérien; surveille fizz." }
+    ]
+  },
+  "priority": [
+    { "id": "DICTION", "label": "Diction", "help": "Surveille intelligibilité / masquage." },
+    { "id": "PLAN", "label": "Plan", "help": "Surveille lead recule / FX vole le front." },
+    { "id": "GROOVE", "label": "Groove", "help": "Surveille delays parasites / timing." },
+    { "id": "ATMOS", "label": "Atmosphère", "help": "Tolère plus d’effet, mais fatigue/mono contrôlés." }
+  ]
+}

@@ -59,42 +59,6 @@ function mountPathPicker(el, pack, store) {
   el.append(commitContainer)
 }
 
-function mountTargetPicker(el, pack, store) {
-  el.innerHTML = ''
-  const state = store.get('targets') || { primary: '', secondary: [] }
-
-  const primary = document.createElement('div')
-  const title = document.createElement('h3')
-  title.textContent = 'Primary target'
-  primary.append(title)
-  ;(pack.targets?.primary || []).forEach((target) => {
-    const checked = state.primary === target.id
-    const { label, input } = createOption(target, 'radio', 'primary-target', checked)
-    input.addEventListener('change', () => {
-      if (input.checked) store.set('targets.primary', target.id)
-    })
-    primary.append(label)
-  })
-  el.append(primary)
-
-  const secondary = document.createElement('div')
-  const secTitle = document.createElement('h3')
-  secTitle.textContent = 'Secondary targets'
-  secondary.append(secTitle)
-  ;(pack.targets?.secondary || []).forEach((target) => {
-    const checked = state.secondary?.includes(target.id)
-    const { label, input } = createOption(target, 'checkbox', 'secondary-target', checked)
-    input.addEventListener('change', () => {
-      const current = new Set(store.get('targets.secondary') || [])
-      if (input.checked) current.add(target.id)
-      else current.delete(target.id)
-      store.set('targets.secondary', Array.from(current))
-    })
-    secondary.append(label)
-  })
-  el.append(secondary)
-}
-
 const toTestsConfig = (tests) => (Array.isArray(tests) ? { groups: [], tests } : { groups: tests.groups || [], tests: tests.tests || [] })
 
 function renderTestRow(test, state, store) {
@@ -104,6 +68,13 @@ function renderTestRow(test, state, store) {
   const title = document.createElement('div')
   title.className = 'test-title'
   title.textContent = test.label || test.id
+
+  if (test.required || test.nonSkippable) {
+    const badge = document.createElement('span')
+    badge.className = 'pill'
+    badge.textContent = test.nonSkippable ? 'Non skippable' : 'Required'
+    title.append(badge)
+  }
 
   const controls = document.createElement('div')
   controls.className = 'test-controls'
@@ -178,12 +149,103 @@ function mountTestsTable(el, pack, store) {
   })
 }
 
+function mountRunSummary(el, store) {
+  el.innerHTML = ''
+
+  const render = () => {
+    const runs = store.get('runs.queue') || []
+    const activeId = store.get('runs.activeRunId')
+    el.innerHTML = ''
+
+    const header = document.createElement('div')
+    header.className = 'run-summary-header'
+    header.textContent = runs.length ? `Runs: ${runs.indexOf(runs.find((r) => r.id === activeId)) + 1}/${runs.length}` : 'Runs en attente'
+    el.append(header)
+
+    if (!runs.length) {
+      const empty = document.createElement('p')
+      empty.textContent = 'Aucun run créé pour le moment.'
+      el.append(empty)
+      return
+    }
+
+    const table = document.createElement('div')
+    table.className = 'run-table'
+
+    runs.forEach((run) => {
+      const row = document.createElement('div')
+      row.className = 'run-row'
+      if (run.id === activeId) row.classList.add('active')
+
+      const label = document.createElement('strong')
+      label.textContent = run.label
+
+      const placement = document.createElement('div')
+      placement.className = 'run-meta'
+      placement.textContent =
+        run.placement.depth && run.placement.width && run.placement.height
+          ? `${run.placement.depth}/${run.placement.width}/${run.placement.height}`
+          : 'Placement ?'
+
+      const priority = document.createElement('div')
+      priority.className = 'run-meta'
+      priority.textContent = run.priority || 'Priorité ?'
+
+      const ref = document.createElement('div')
+      ref.className = 'run-meta'
+      ref.textContent = run.reference?.used ? `[REF] ${run.reference.whatToVerify}` : 'Reference ?'
+
+      row.append(label, placement, priority, ref)
+      table.append(row)
+    })
+
+    el.append(table)
+  }
+
+  render()
+  store.subscribe(render)
+}
+
+function mountJournalList(el, store) {
+  const render = () => {
+    const entries = store.get('journal.entries') || []
+    el.innerHTML = ''
+    if (!entries.length) {
+      const empty = document.createElement('p')
+      empty.textContent = 'Aucune entrée pour le moment.'
+      el.append(empty)
+      return
+    }
+
+    const list = document.createElement('ul')
+    list.className = 'journal-list'
+    entries
+      .slice()
+      .reverse()
+      .forEach((entry) => {
+        const item = document.createElement('li')
+        const ts = document.createElement('span')
+        ts.className = 'ts'
+        ts.textContent = new Date(entry.ts).toLocaleString()
+        const text = document.createElement('p')
+        text.textContent = entry.text
+        item.append(ts, text)
+        list.append(item)
+      })
+    el.append(list)
+  }
+
+  render()
+  store.subscribe(render)
+}
+
 export function mountAll(rootEl, pack, store) {
   const mounts = Array.from(rootEl.querySelectorAll('[data-mount]'))
   mounts.forEach((el) => {
     const type = el.dataset.mount
     if (type === 'path-picker') mountPathPicker(el, pack, store)
-    if (type === 'target-picker') mountTargetPicker(el, pack, store)
     if (type === 'tests-table') mountTestsTable(el, pack, store)
+    if (type === 'run-summary') mountRunSummary(el, store)
+    if (type === 'journal-list') mountJournalList(el, store)
   })
 }

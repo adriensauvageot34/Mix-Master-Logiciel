@@ -16,7 +16,7 @@ const coerceTestsState = (state, pack) => {
   defs.forEach((test) => {
     const current = state.tests?.[test.id] || {}
     tests[test.id] = {
-      verdict: current.verdict || (current.skipped ? 'SKIP' : 'SKIP'),
+      verdict: current.verdict || 'SKIP',
       reason: current.reason || ''
     }
   })
@@ -29,39 +29,36 @@ const coercePathState = (state) => {
   return { commit: '', trials: [] }
 }
 
+const defaultRunsState = () => ({ queue: [], activeRunId: null })
+
 export function createDefaultState(doorId, runId, pack) {
   const testDefs = Array.isArray(pack.tests) ? pack.tests : pack.tests?.tests || []
-  const targetsDefault = pack.rules?.targets?.primaryDefault || ''
   const defaultPath = { commit: '', trials: [] }
   return {
     doorId,
     runId,
-    version: 1,
+    version: 2,
     status: '',
     toggles: { sigOff: false, ctrlOff: false },
     checkpoint: { current: '' },
     risk: { badge: '' },
     path: defaultPath,
     paths: { selection: defaultPath },
-    targets: { primary: targetsDefault, secondary: [] },
     core: {
       pathCommit: '',
       croix: '',
       riskFocus: '',
-      targetPrimary: targetsDefault,
-      targetSecondary: 'Aucun',
       constats: ''
     },
-    reference: { used: false, whatToVerify: '' },
     notes: { trial: '', constats: '', afterCommit: '' },
     handoff: { text: '' },
-    journal: { entry: '' },
+    journal: { draft: '', entries: [] },
     tests: testDefs.reduce((acc, test) => {
       acc[test.id] = { verdict: 'SKIP', reason: '' }
       return acc
     }, {}),
     fields: {},
-    runs: [],
+    runs: defaultRunsState(),
     ui: { collapsedSections: {} }
   }
 }
@@ -70,9 +67,10 @@ export function createStore(initialState, pack) {
   let state = structuredClone(initialState)
   state.path = coercePathState(state)
   state.paths = { selection: state.path }
-  state.targets = state.targets || { primary: '', secondary: [] }
   state.core = state.core || {}
   state.tests = coerceTestsState(state, pack)
+  state.journal = state.journal || { draft: '', entries: [] }
+  state.runs = state.runs?.queue ? state.runs : defaultRunsState()
   state.ui = state.ui || { collapsedSections: {} }
 
   const listeners = new Set()
@@ -81,16 +79,13 @@ export function createStore(initialState, pack) {
 
   const syncCoreFromState = () => {
     const commitId = state.path?.commit || ''
-    const pathDef = (pack.paths?.commits || []).find((p) => p.id === commitId) ||
+    const pathDef =
+      (pack.paths?.commits || []).find((p) => p.id === commitId) ||
       (pack.paths?.trials || []).find((p) => p.id === commitId)
 
     state.core.pathCommit = commitId ? pathDef?.label || commitId : ''
     state.core.croix = commitId ? pathDef?.croix || '' : ''
     state.core.riskFocus = commitId ? pathDef?.riskFocus || '' : ''
-
-    state.core.targetPrimary = state.targets?.primary || ''
-    const secondary = state.targets?.secondary || []
-    state.core.targetSecondary = secondary.length ? secondary.join(', ') : 'Aucun'
   }
 
   const get = (path) => {
@@ -103,7 +98,7 @@ export function createStore(initialState, pack) {
     const { node, lastKey } = ensureObjectPath(state, [...keys])
     node[lastKey] = value
 
-    if (path.startsWith('path') || path.startsWith('targets')) {
+    if (path.startsWith('path')) {
       syncCoreFromState()
     }
 

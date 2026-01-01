@@ -8,8 +8,14 @@ const isEmptyValue = (value) => {
   return false
 }
 
-export function evaluateDone(rules = {}, state) {
+const flattenTests = (testsDef = []) => {
+  const tests = Array.isArray(testsDef) ? testsDef : testsDef.tests || []
+  return tests
+}
+
+export function evaluateDone(rules = {}, state, testsDef = []) {
   const blockers = []
+  const tests = flattenTests(testsDef)
   const doneRules = rules.doneGates || rules.done || []
 
   doneRules.forEach((rule) => {
@@ -19,11 +25,27 @@ export function evaluateDone(rules = {}, state) {
     }
     if (rule.type === 'requiredTestNotSkipped') {
       const test = state.tests?.[rule.testId]
-      if (!test || test.verdict === 'SKIP') {
+      if (!test || test.verdict === 'SKIP' || !test.verdict) {
         blockers.push(rule.message || `Test ${rule.testId} must not be skipped`)
       }
     }
   })
+
+  tests.forEach((test) => {
+    const verdict = state.tests?.[test.id]?.verdict
+    if (test.nonSkippable && (!verdict || verdict === 'SKIP')) {
+      blockers.push(`Test ${test.id} ne peut pas être SKIP`)
+    }
+    if (test.required && (!verdict || verdict === 'SKIP')) {
+      blockers.push(`Test ${test.id} requis manquant`)
+    }
+  })
+
+  if (rules.doneRequiresAllRunsValidated) {
+    const queue = state.runs?.queue || []
+    const invalid = queue.filter((r) => r.status !== 'VALID')
+    if (invalid.length) blockers.push('Tous les runs doivent être VALID')
+  }
 
   return { ok: blockers.length === 0, blockers }
 }
