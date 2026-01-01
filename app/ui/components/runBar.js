@@ -23,7 +23,7 @@ export function renderRunBar(pack, store, modal) {
   blockersEl.className = 'blockers'
 
   const sync = () => {
-    const { ok, blockers } = evaluateDone(pack.rules, store.get())
+    const { ok, blockers } = evaluateDone(pack.rules, store.get(), pack.tests)
     doneBtn.disabled = !ok
     blockersEl.innerHTML = ''
     if (!ok) {

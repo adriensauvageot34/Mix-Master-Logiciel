@@ -6,7 +6,6 @@ import templateManifest from "../../doors/_template/door.manifest.json";
 import templateRules from "../../doors/_template/door.rules.json";
 import templateTests from "../../doors/_template/door.tests.json";
 import templatePaths from "../../doors/_template/door.paths.json";
-import templateTargets from "../../doors/_template/door.targets.json";
 import templateContentHtml from "../../doors/_template/door.content.html?raw";
 import templateResourcesHtml from "../../doors/_template/door.resources.html?raw";
 import templateCssText from "../../doors/_template/door.css?raw";
@@ -17,7 +16,6 @@ import p14Manifest from "../../doors/P14/door.manifest.json";
 import p14Rules from "../../doors/P14/door.rules.json";
 import p14Tests from "../../doors/P14/door.tests.json";
 import p14Paths from "../../doors/P14/door.paths.json";
-import p14Targets from "../../doors/P14/door.targets.json";
 import p14ContentHtml from "../../doors/P14/door.content.html?raw";
 import p14ResourcesHtml from "../../doors/P14/door.resources.html?raw";
 import p14CssText from "../../doors/P14/door.css?raw";
@@ -30,7 +28,6 @@ const PACKS = {
     rules: templateRules,
     tests: templateTests,
     paths: templatePaths,
-    targets: templateTargets,
     contentHtml: templateContentHtml,
     resourcesHtml: templateResourcesHtml,
     cssText: templateCssText
@@ -41,7 +38,6 @@ const PACKS = {
     rules: p14Rules,
     tests: p14Tests,
     paths: p14Paths,
-    targets: p14Targets,
     contentHtml: p14ContentHtml,
     resourcesHtml: p14ResourcesHtml,
     cssText: p14CssText

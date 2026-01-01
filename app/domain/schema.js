@@ -1,4 +1,4 @@
-const requiredFields = ['meta', 'manifest', 'rules', 'tests', 'paths', 'targets', 'contentHtml', 'resourcesHtml']
+const requiredFields = ['meta', 'manifest', 'rules', 'tests', 'paths', 'contentHtml', 'resourcesHtml']
 
 export function validatePack(pack, id) {
   requiredFields.forEach((field) => {
@@ -28,7 +28,6 @@ export function normalizePack(pack) {
     rules: pack.rules || { done: [] },
     tests: testsConfig,
     paths: pack.paths || { trials: [], commits: [] },
-    targets: pack.targets || { primary: [], secondary: [] },
     contentHtml: pack.contentHtml || '',
     resourcesHtml: pack.resourcesHtml || '',
     cssText: pack.cssText || ''

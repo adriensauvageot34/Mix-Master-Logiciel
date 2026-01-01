@@ -32,4 +32,18 @@ export function bindAll(rootEl, store) {
   })
 
   store.subscribe(() => bound.forEach((el) => applyBinding(el, store)))
+
+  rootEl.addEventListener('click', (event) => {
+    const actionEl = event.target.closest('[data-action]')
+    if (!actionEl) return
+    const action = actionEl.dataset.action
+    if (action === 'add-journal-entry') {
+      const draft = (store.get('journal.draft') || '').trim()
+      if (!draft) return
+      store.update((state) => {
+        const entry = { ts: Date.now(), text: draft, doorId: state.doorId, runId: state.runs?.activeRunId }
+        return { ...state, journal: { draft: '', entries: [...(state.journal?.entries || []), entry] } }
+      })
+    }
+  })
 }
